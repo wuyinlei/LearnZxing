@@ -26,5 +26,27 @@
         android:layout_marginTop="5dp"
         android:textSize="20sp"/>
 
+    <EditText
+        android:id="@+id/et_zxing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/make_qrcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建二维码"/>
+
+    <ImageView
+        android:id="@+id/showQrcode"
+        android:layout_gravity="center"
+        android:background="@mipmap/ic_launcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:text="是否在二维码中间生成图片"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

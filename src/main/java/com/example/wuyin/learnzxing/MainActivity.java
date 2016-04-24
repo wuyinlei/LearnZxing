@@ -21,10 +21,15 @@ import com.xys.libzxing.zxing.encoding.EncodingUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStartScan;
+    private Button btnStartScan, btnMakeQrcode;
 
     private TextView tvResult;
 
+    private EditText etZxing;
+
+    private ImageView showQrcode;
+
+    private CheckBox mCheckBox;
 
 
     @Override
@@ -37,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
         btnStartScan.setOnClickListener(new MyClickListener());
         tvResult = (TextView) findViewById(R.id.result);
 
-
+        //生成二维码
+        btnMakeQrcode = (Button) findViewById(R.id.make_qrcode);
+        btnMakeQrcode.setOnClickListener(new MyClickListener());
+        etZxing = (EditText) findViewById(R.id.et_zxing);
+        showQrcode = (ImageView) findViewById(R.id.showQrcode);
+        mCheckBox = (CheckBox) findViewById(R.id.checkbox);
     }
 
 
@@ -47,10 +57,24 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (v.getId() == R.id.btn_start_scan) {
                 startActivityForResult(new Intent(MainActivity.this, CaptureActivity.class), 0);
+            } else if (v.getId() == R.id.make_qrcode) {
+                makeQrcode();
             }
         }
     }
 
+    /**
+     * 生成二维码
+     */
+    private void makeQrcode() {
+        String input = etZxing.getText().toString();
+        if (!TextUtils.isEmpty(input)) {
+            Bitmap bitmap = EncodingUtils.createQRCode(input, 500, 500, mCheckBox.isChecked() ? BitmapFactory.decodeResource(getResources(), R.mipmap.kenan) : null);
+            showQrcode.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(this, "输入不能为空", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
